@@ -1,0 +1,6 @@
+rsa:
+  private-key: 12345
+  public-key: 123
+
+server:
+  port: 8081
