@@ -1,5 +1,6 @@
 package br.com.chassiauth.auth.chassi.modulos.config.security.service;
 
+import br.com.chassiauth.auth.chassi.modulos.config.security.dto.JwtPayload;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,7 +22,7 @@ public class TokenService {
         this.encoder = encoder;
     }
 
-    public String generateToken(Authentication authentication) {
+    public JwtPayload generateToken(Authentication authentication) {
         Instant now = Instant.now();
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -30,9 +32,17 @@ public class TokenService {
                 .issuedAt(now)
                 .expiresAt(now.plus(1, ChronoUnit.HOURS))
                 .subject(authentication.getName())
-                .claim("scope", scope)
+                .claim("role", scope)
                 .build();
-        return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+
+        var token = this.encoder.encode(JwtEncoderParameters.from(claims));
+
+        return JwtPayload.builder()
+                .user(authentication.getName())
+                .token(token.getTokenValue())
+                .expiration(Objects.requireNonNull(token.getExpiresAt()).toString())
+                .authorities(claims.getClaims().toString())
+                .build();
     }
 
 }

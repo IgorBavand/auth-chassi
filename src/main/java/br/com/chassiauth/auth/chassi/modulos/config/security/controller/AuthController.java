@@ -1,5 +1,6 @@
 package br.com.chassiauth.auth.chassi.modulos.config.security.controller;
 
+import br.com.chassiauth.auth.chassi.modulos.config.security.dto.JwtPayload;
 import br.com.chassiauth.auth.chassi.modulos.config.security.model.LoginRequest;
 import br.com.chassiauth.auth.chassi.modulos.config.security.service.TokenService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("auth/token")
-    public String token(@RequestBody LoginRequest userLogin) throws AuthenticationException {
+    public JwtPayload token(@RequestBody LoginRequest userLogin) throws AuthenticationException {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
         return tokenService.generateToken(authentication);
     }

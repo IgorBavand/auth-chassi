@@ -29,7 +29,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @Configuration
@@ -51,9 +50,8 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(
                 User.withUsername("igor")
                         .password("{noop}12345")
-                        .authorities("user")
+                        .authorities(ERoles.CADASTRAR_USUARIO.getSimpleDescription())
                         .build()
-
         );
     }
 
@@ -62,8 +60,10 @@ public class SecurityConfig {
         return http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests( auth -> auth
-                        .requestMatchers("/api/auth/token").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/token", "/api/hello").permitAll()
+                        .requestMatchers("/api/hello")
+                        .hasRole(ERoles.CADASTRAR_USUARIO.getDescription())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -100,4 +100,3 @@ public class SecurityConfig {
     }
 
 }
-
