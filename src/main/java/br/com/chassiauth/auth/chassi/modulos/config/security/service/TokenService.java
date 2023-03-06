@@ -32,7 +32,7 @@ public class TokenService {
                 .issuedAt(now)
                 .expiresAt(now.plus(1, ChronoUnit.HOURS))
                 .subject(authentication.getName())
-                .claim("role", scope)
+                .claim("scope", scope)
                 .build();
 
         var token = this.encoder.encode(JwtEncoderParameters.from(claims));
@@ -41,7 +41,7 @@ public class TokenService {
                 .user(authentication.getName())
                 .token(token.getTokenValue())
                 .expiration(Objects.requireNonNull(token.getExpiresAt()).toString())
-                .authorities(claims.getClaims().toString())
+                .authorities(scope)
                 .build();
     }
 

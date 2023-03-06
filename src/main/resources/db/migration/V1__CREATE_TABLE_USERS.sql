@@ -1,6 +1,8 @@
 CREATE TABLE users (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(50) NOT NULL,
-  username VARCHAR(50) NOT NULL,
-  password VARCHAR(50) NOT NULL
-);
+  id Integer NOT NULL AUTO_INCREMENT,
+  enabled varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  username varchar(255) NOT NULL,
+  PRIMARY KEY (id)
+)

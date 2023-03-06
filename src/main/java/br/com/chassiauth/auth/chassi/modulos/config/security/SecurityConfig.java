@@ -5,6 +5,7 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,8 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -29,6 +32,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Configuration
@@ -37,6 +41,9 @@ import java.util.List;
 public class SecurityConfig {
 
     private RSAKey rsaKey;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Bean
     public AuthenticationManager authManager(UserDetailsService userDetailsService) {
@@ -50,9 +57,14 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(
                 User.withUsername("igor")
                         .password("{noop}12345")
-                        .authorities(ERoles.CADASTRAR_USUARIO.getSimpleDescription())
+                        .authorities("CADASTRAR_USUARIO")
                         .build()
         );
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(16);
     }
 
     @Bean
@@ -61,10 +73,14 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/token", "/api/hello").permitAll()
+                        .requestMatchers("/api/auth/token")
+                        .permitAll()
+                        .requestMatchers("/api/users/**")
+                        .hasAuthority(EAuthorities.MANAGE_USERS.getDescription())
                         .requestMatchers("/api/hello")
-                        .hasRole(ERoles.CADASTRAR_USUARIO.getDescription())
-                        .anyRequest().authenticated()
+                        .hasAuthority(EAuthorities.USERS_TEST.getDescription())
+                        .anyRequest()
+                        .authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

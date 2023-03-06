@@ -10,6 +10,8 @@
 
 > Flyway 9.15.1
 
+> Json Web Token
+
 ## Installation:
 
 Maven installed is required (apt-get install maven)

@@ -1,13 +1,13 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
 
   datasource:
-      url: jdbc:mysql://localhost:3306/auth_chassi
+      url: jdbc:mysql://localhost:3306/auth_chassi?createDatabaseIfNotExist=true
       username: igor
       password: 12345678
 

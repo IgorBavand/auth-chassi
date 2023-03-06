@@ -1,14 +1,15 @@
 package br.com.chassiauth.auth.chassi.modulos.config.security;
 
-public enum ERoles {
+public enum EAuthorities {
 
-    CADASTRAR_USUARIO("CADASTRAR_USUARIO");
+    MANAGE_USERS("MANAGE_USERS"),
+    USERS_TEST("USERS_TEST");
 
     private String description;
 
-    private final String PREFIX_ROLE = "ROLE_";
+    private final String PREFIX_ROLE = "SCOPE_";
 
-    private ERoles(String description){
+    private EAuthorities(String description){
         this.description = description;
     }
 
