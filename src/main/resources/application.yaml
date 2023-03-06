@@ -7,7 +7,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 
   datasource:
-      url: jdbc:mysql://localhost:3306/auth_chassi?createDatabaseIfNotExist=true
+      url: jdbc:mysql://localhost:3306/auth_chassi
       username: igor
       password: 12345678
 
