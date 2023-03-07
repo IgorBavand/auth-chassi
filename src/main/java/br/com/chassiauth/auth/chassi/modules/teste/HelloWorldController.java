@@ -1,5 +1,7 @@
 package br.com.chassiauth.auth.chassi.modules.teste;
 
+import br.com.chassiauth.auth.chassi.modules.authentication.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/hello")
 public class HelloWorldController {
 
+
+    @Autowired
+    private AuthService authService;
+
     @GetMapping
     public String hello() {
-        //TODO => IMPLEMENTS CLASS AUTHSERVICE
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        return "HELLO " + username;
+        var user = authService.getUserAuthenticated();
+        return "HELLO " + user.getName();
     }
 }

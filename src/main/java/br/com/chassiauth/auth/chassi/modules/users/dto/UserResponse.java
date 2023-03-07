@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 public class UserResponse {
 
+    private Integer id;
     private String name;
     private String username;
     private ESituation enabled;
