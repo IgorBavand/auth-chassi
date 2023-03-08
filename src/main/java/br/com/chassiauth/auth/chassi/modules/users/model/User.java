@@ -1,5 +1,6 @@
 package br.com.chassiauth.auth.chassi.modules.users.model;
 
+import br.com.chassiauth.auth.chassi.modules.users.dto.UserRequest;
 import br.com.chassiauth.auth.chassi.modules.users.enums.ESituation;
 import jakarta.persistence.*;
 import lombok.*;
@@ -39,5 +40,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    // getters e setters
+    public static User of(UserRequest request) {
+        return User.builder()
+                .name(request.getName())
+                .username(request.getUsername())
+                .enabled(ESituation.ACTIVE)
+                .build();
+    }
 }

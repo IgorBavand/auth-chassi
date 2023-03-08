@@ -29,4 +29,14 @@ public class UserResponse {
                 .roles(roles)
                 .build();
     }
+
+    public static List<UserResponse> of(List<User> users) {
+        if ( users == null ) {
+            return null;
+        }
+        List<UserResponse> list = new ArrayList<UserResponse>( users.size() );
+        users.forEach(user -> list.add(of(user)));
+
+        return list;
+    }
 }
