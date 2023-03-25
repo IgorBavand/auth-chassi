@@ -1,4 +1,4 @@
-package br.com.chassiauth.auth.chassi.config.security.service;
+package br.com.chassiauth.auth.chassi.modules.authentication.service;
 
 import br.com.chassiauth.auth.chassi.modules.users.enums.ESituation;
 import br.com.chassiauth.auth.chassi.modules.users.model.User;

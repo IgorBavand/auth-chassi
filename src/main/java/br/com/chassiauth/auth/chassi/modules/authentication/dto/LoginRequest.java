@@ -1,4 +1,4 @@
-package br.com.chassiauth.auth.chassi.config.security.model;
+package br.com.chassiauth.auth.chassi.modules.authentication.dto;
 
 public record LoginRequest(String username, String password) {
 }

@@ -1,6 +1,6 @@
-package br.com.chassiauth.auth.chassi.config.security.service;
+package br.com.chassiauth.auth.chassi.modules.authentication.service;
 
-import br.com.chassiauth.auth.chassi.config.security.dto.JwtPayload;
+import br.com.chassiauth.auth.chassi.modules.authentication.dto.JwtPayload;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;

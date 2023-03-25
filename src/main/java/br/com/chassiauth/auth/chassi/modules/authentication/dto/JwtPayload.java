@@ -1,4 +1,4 @@
-package br.com.chassiauth.auth.chassi.config.security.dto;
+package br.com.chassiauth.auth.chassi.modules.authentication.dto;
 
 import lombok.Builder;
 import lombok.Data;

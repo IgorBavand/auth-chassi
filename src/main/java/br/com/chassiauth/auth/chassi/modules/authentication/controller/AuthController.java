@@ -1,9 +1,9 @@
 package br.com.chassiauth.auth.chassi.modules.authentication.controller;
 
-import br.com.chassiauth.auth.chassi.config.security.dto.JwtPayload;
-import br.com.chassiauth.auth.chassi.config.security.model.LoginRequest;
-import br.com.chassiauth.auth.chassi.config.security.service.CustomAuthenticationProvider;
-import br.com.chassiauth.auth.chassi.config.security.service.TokenService;
+import br.com.chassiauth.auth.chassi.modules.authentication.dto.JwtPayload;
+import br.com.chassiauth.auth.chassi.modules.authentication.dto.LoginRequest;
+import br.com.chassiauth.auth.chassi.modules.authentication.service.CustomAuthenticationProvider;
+import br.com.chassiauth.auth.chassi.modules.authentication.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
