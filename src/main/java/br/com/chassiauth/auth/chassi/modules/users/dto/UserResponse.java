@@ -23,6 +23,7 @@ public class UserResponse {
         user.getRoles().forEach(role -> roles.add(role.getName()));
 
         return UserResponse.builder()
+                .id(user.getId())
                 .name(user.getName())
                 .username(user.getUsername())
                 .enabled(user.getEnabled())

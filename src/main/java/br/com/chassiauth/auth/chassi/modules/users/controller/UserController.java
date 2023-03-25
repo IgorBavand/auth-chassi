@@ -34,4 +34,9 @@ public class UserController {
     public UserResponse updateUser(Integer id, @RequestBody UserRequest request) {
         return userService.updateUser(id, request);
     }
+
+    @DeleteMapping("{id}")
+    public UserResponse deleteUser(@PathVariable Integer id) {
+        return userService.deleteUser(id);
+    }
 }

@@ -62,6 +62,13 @@ public class UserService {
         return UserResponse.of(findById(id));
     }
 
+    public UserResponse deleteUser(Integer id) {
+        var user = findById(id);
+
+        userRepository.delete(user);
+        return UserResponse.of(user);
+    }
+
     private User findById(Integer id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found."));
