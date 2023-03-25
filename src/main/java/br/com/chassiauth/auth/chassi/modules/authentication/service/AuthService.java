@@ -1,6 +1,6 @@
 package br.com.chassiauth.auth.chassi.modules.authentication.service;
 
-import br.com.chassiauth.auth.chassi.modules.users.dto.UserResponse;
+import br.com.chassiauth.auth.chassi.modules.users.dto.response.UserResponse;
 import br.com.chassiauth.auth.chassi.modules.users.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

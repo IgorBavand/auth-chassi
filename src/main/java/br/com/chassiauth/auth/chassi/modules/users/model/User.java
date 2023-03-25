@@ -1,6 +1,6 @@
 package br.com.chassiauth.auth.chassi.modules.users.model;
 
-import br.com.chassiauth.auth.chassi.modules.users.dto.UserRequest;
+import br.com.chassiauth.auth.chassi.modules.users.dto.request.UserRequest;
 import br.com.chassiauth.auth.chassi.modules.users.enums.ESituation;
 import lombok.*;
 

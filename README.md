@@ -4,9 +4,9 @@
 
 >Java 17
 
-> SpringBoot 3.0.2
+> SpringBoot 2.7.5
 
-> Spring Security 6
+> Spring Security 5
 
 > Flyway 9.15.1
 

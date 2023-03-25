@@ -1,9 +1,12 @@
 package br.com.chassiauth.auth.chassi.modules.users.controller;
 
-import br.com.chassiauth.auth.chassi.modules.users.dto.UserRequest;
-import br.com.chassiauth.auth.chassi.modules.users.dto.UserResponse;
+import br.com.chassiauth.auth.chassi.feign.PageRequest;
+import br.com.chassiauth.auth.chassi.modules.users.dto.filter.UserFilter;
+import br.com.chassiauth.auth.chassi.modules.users.dto.request.UserRequest;
+import br.com.chassiauth.auth.chassi.modules.users.dto.response.UserResponse;
 import br.com.chassiauth.auth.chassi.modules.users.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +24,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserResponse> getListAll() {
-        return userService.getListAll();
+    public Page<UserResponse> getAll(PageRequest pageRequest, UserFilter filter) {
+        return userService.getAll(pageRequest, filter);
     }
 
     @GetMapping("{id}")

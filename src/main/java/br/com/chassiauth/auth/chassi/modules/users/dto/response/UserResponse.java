@@ -1,4 +1,4 @@
-package br.com.chassiauth.auth.chassi.modules.users.dto;
+package br.com.chassiauth.auth.chassi.modules.users.dto.response;
 
 import br.com.chassiauth.auth.chassi.modules.users.enums.ESituation;
 import br.com.chassiauth.auth.chassi.modules.users.model.User;
@@ -29,15 +29,5 @@ public class UserResponse {
                 .enabled(user.getEnabled())
                 .roles(roles)
                 .build();
-    }
-
-    public static List<UserResponse> of(List<User> users) {
-        if ( users == null ) {
-            return null;
-        }
-        List<UserResponse> list = new ArrayList<UserResponse>( users.size() );
-        users.forEach(user -> list.add(of(user)));
-
-        return list;
     }
 }

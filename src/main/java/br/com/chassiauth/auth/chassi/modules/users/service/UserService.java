@@ -1,15 +1,16 @@
 package br.com.chassiauth.auth.chassi.modules.users.service;
 
+import br.com.chassiauth.auth.chassi.feign.PageRequest;
 import br.com.chassiauth.auth.chassi.modules.common.exception.NotFoundException;
-import br.com.chassiauth.auth.chassi.modules.users.dto.UserRequest;
-import br.com.chassiauth.auth.chassi.modules.users.dto.UserResponse;
-import br.com.chassiauth.auth.chassi.modules.users.enums.ESituation;
+import br.com.chassiauth.auth.chassi.modules.users.dto.filter.UserFilter;
+import br.com.chassiauth.auth.chassi.modules.users.dto.request.UserRequest;
+import br.com.chassiauth.auth.chassi.modules.users.dto.response.UserResponse;
 import br.com.chassiauth.auth.chassi.modules.users.model.Role;
 import br.com.chassiauth.auth.chassi.modules.users.model.User;
 import br.com.chassiauth.auth.chassi.modules.users.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,8 +55,8 @@ public class UserService {
         return UserResponse.of(user);
     }
 
-    public List<UserResponse> getListAll() {
-        return UserResponse.of(userRepository.findAll());
+    public Page<UserResponse> getAll(PageRequest pageRequest, UserFilter filter) {
+        return userRepository.findAll(filter.toPredicate(), pageRequest).map(UserResponse::of);
     }
 
     public UserResponse getById(Integer id) {

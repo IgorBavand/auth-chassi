@@ -1,4 +1,4 @@
-package br.com.chassiauth.auth.chassi.modules.users.dto;
+package br.com.chassiauth.auth.chassi.modules.users.dto.request;
 
 import br.com.chassiauth.auth.chassi.modules.users.enums.ESituation;
 import lombok.Data;
