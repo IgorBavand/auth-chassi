@@ -31,10 +31,6 @@ public class AuthController {
 
     @PostMapping("auth/token")
     public JwtPayload token(@RequestBody LoginRequest userLogin) throws AuthenticationException {
-
-        //TODO -> IN MEMORY
-       //Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
-
         Authentication authentication = customAuthenticationProvider
                 .authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
 

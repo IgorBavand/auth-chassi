@@ -1,0 +1,2 @@
+ALTER TABLE users ADD created_at TIMESTAMP NOT NULL;
+ALTER TABLE users ADD updated_at TIMESTAMP NOT NULL;

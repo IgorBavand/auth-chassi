@@ -9,6 +9,7 @@ import java.util.List;
 public class UserRequest {
     private String name;
     private String username;
+    private String email;
     private String password;
     private ESituation enabled;
     private List<Integer> roles;

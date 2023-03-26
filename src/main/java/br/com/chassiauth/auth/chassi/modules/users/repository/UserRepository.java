@@ -12,4 +12,9 @@ public interface UserRepository extends JpaRepository<User, Integer>,
         QuerydslPredicateExecutor<User> {
 
     Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
+    boolean existsByUsernameIgnoreCase(String username);
+    boolean existsByEmailIgnoreCase(String email);
+    Optional<User> findByUsernameOrEmail(String username, String email);
+
 }

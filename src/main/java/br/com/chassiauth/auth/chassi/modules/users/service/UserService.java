@@ -1,6 +1,7 @@
 package br.com.chassiauth.auth.chassi.modules.users.service;
 
 import br.com.chassiauth.auth.chassi.feign.PageRequest;
+import br.com.chassiauth.auth.chassi.modules.common.exception.ConflictException;
 import br.com.chassiauth.auth.chassi.modules.common.exception.NotFoundException;
 import br.com.chassiauth.auth.chassi.modules.users.dto.filter.UserFilter;
 import br.com.chassiauth.auth.chassi.modules.users.dto.request.UserRequest;
@@ -16,11 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
 public class UserService {
+
+    private final String USER_NOT_FOUND = "User not found.";
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -29,8 +31,8 @@ public class UserService {
     private UserRepository userRepository;
 
     public UserResponse createUser(UserRequest request) {
+        checkUser(request.getUsername(), request.getEmail());
         var user = User.of(request);
-
         Set<Role> roles = new HashSet<>();
 
         request.getRoles()
@@ -44,6 +46,7 @@ public class UserService {
 
     @Transactional
     public UserResponse updateUser(Integer id, UserRequest request) {
+        checkUser(request.getUsername(), request.getEmail());
         var user = findById(id);
         BeanUtils.copyProperties(user, request, "id");
 
@@ -72,12 +75,23 @@ public class UserService {
 
     private User findById(Integer id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found."));
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
     }
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("User not found."));
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+    }
+
+    public User findByUsernameOrEmail(String username, String email) {
+        return userRepository.findByUsernameOrEmail(username, email)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+    }
+
+    private void checkUser(String username, String email) {
+        if(userRepository.existsByUsernameIgnoreCase(username) || userRepository.existsByEmailIgnoreCase(email)) {
+            throw new ConflictException("Username or email already registred!");
+        }
     }
 
 }

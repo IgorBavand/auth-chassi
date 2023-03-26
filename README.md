@@ -8,6 +8,8 @@
 
 > Spring Security 5
 
+> QueryDSL 4.4.0
+
 > Flyway 9.15.1
 
 > Json Web Token

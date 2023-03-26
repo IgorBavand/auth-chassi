@@ -2,6 +2,7 @@ package br.com.chassiauth.auth.chassi.modules.common.handler;
 
 
 import br.com.chassiauth.auth.chassi.modules.common.exception.BadRequestException;
+import br.com.chassiauth.auth.chassi.modules.common.exception.ConflictException;
 import br.com.chassiauth.auth.chassi.modules.common.exception.ExceptionResponse;
 import br.com.chassiauth.auth.chassi.modules.common.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public final ResponseEntity<ExceptionResponse> handlerNotFound(
+            ConflictException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
     }
 
 

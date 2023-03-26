@@ -4,7 +4,6 @@ import br.com.chassiauth.auth.chassi.modules.users.enums.ESituation;
 import br.com.chassiauth.auth.chassi.modules.users.model.User;
 import br.com.chassiauth.auth.chassi.modules.users.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,7 +31,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        User user = userService.findByUsername(authentication.getName());
+        User user = userService.findByUsernameOrEmail(authentication.getName(), authentication.getName());
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));

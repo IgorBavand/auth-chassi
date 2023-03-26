@@ -5,6 +5,7 @@ import br.com.chassiauth.auth.chassi.modules.users.model.User;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,11 @@ public class UserResponse {
     private Integer id;
     private String name;
     private String username;
+    private String email;
     private ESituation enabled;
     private List<String> roles;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public static UserResponse of(User user) {
         List<String> roles = new ArrayList<String>();
@@ -26,8 +30,11 @@ public class UserResponse {
                 .id(user.getId())
                 .name(user.getName())
                 .username(user.getUsername())
+                .email(user.getEmail())
                 .enabled(user.getEnabled())
                 .roles(roles)
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
                 .build();
     }
 }
